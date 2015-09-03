@@ -1,11 +1,18 @@
-<!DOCTYPE html>
 <html>
 
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='stylesheet.css') }}"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='zabuto_calendar.min.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='zabuto_calendar.min.js') }}"></script>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='datepicker.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-datepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='create.js') }}"></script>
+
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +21,7 @@
     
   </head>
   
-  <body>
+   <body>
     <div class="nav">
       <div class="container">
       	<h3><h3>
@@ -34,75 +41,54 @@
       <div class="container">
         <h1 align="center">PUT YOUR BABY MILESTONES HERE!</br>
         <p></p>
-        <a href="{{ url_for('album_index') }}" class="btn btn-default btn-xl" style="background-color:#FFFFCC" id='createbutton'>CREATE YOUR BABY MILESTONES ALBUM</a>
-        </h1>
-         
+        </h1> 
       </div>
     </div> 
     
     <div class="learn-more">
 	  <div class="container">
-		<div class="row">
-	  	  <div class="col-md-8">
-			<h4>SHARE ALBUM EASILY WITH THOSE WHO LOVE YOUR BABY</h4>
-			<img src='https://cdn.psychologytoday.com/sites/default/files/blogs/1023/2013/10/135931-135908.jpg' width=500px>
-		  </div>
-		  <div class="col-md-4">
-			<h4>  KEEP EVERYTHING TOGETHER SAFELY<h4>
-			<img src='http://www.asia.ru/images/target/photo/51358011/Photo_Album___Frame.jpg' width=500px>
-			
-	      </div>
-	
-	    </div>
-	  </div>
-	</div>
-	
-	<div class="learn-more">
-	  <div class="container">
-	  	<h4 align="center">RECORD YOUR BABY'S GROWTH </h4>
-		<div class="row" align= "center">
-		 <div class="col-md-6">
-			<h4></h4>
-			<img src= 'http://alliwaw.files.wordpress.com/2010/01/31130-clipart-illustration-of-a-baby-giggling-and-weighing-himself-on-a-scale-in-a-nursery.jpg'>
-		 </div>
-		 <div class="col-md-6">
-			<h4></h4>
-			<img src= 'http://babyenroute.sa.metacdn.com/media/catalog/product/cache/1/image/1200x1200/9df78eab33525d08d6e5fb8d27136e95/d/j/djeco_growth_chart_friends_of_the_amazon-baby_enroute2.jpg' width=500px>
-		 </div>
-	    </div>
-	  </div>
-	</div>
-	</br>
-	</br>
-	<div class="learn-more">
-	  <div class="container">
-	  	<h4 align="center">ACCESS BABY MILESTONES ALBUM FROM ALL YOUR DEVICES </h4>
-		<div class="row" align= "center">
-	  	  <div class="col-md-4">
-			<h4></h4>
-			<img src='data:image/jpeg;base64,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' >
-		  </div>
-		  <div class="col-md-4">
-			<h4><h4>
-			<img src='http://classroomclipart.com/images/gallery/Clipart/Communication/TN_iphone_719R.jpg' width=200px>
-	      </div>
-	       <div class="col-md-4">
-			<h4><h4>
-			<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0QXuZB146VxAS1ksH4Uarx4vF8PwgZTK43BvZ1ecFzRwc0yl7gQ' width=200px>
-	      </div>
-	
-	    </div>
-	  </div>
-	</div>
-	
-	</br>
-	
-    <div class="bottom">
-      <div class="container">
-      	<h4 align = "center"><a href="{{ url_for('album_index') }}">Start your Baby Milestones album !</a><h4>
-      </div>
+	  	<div class="row" align="center">
+		 <div class="col-md-4">
+		 	<div id="my-calendar"> </div> 
+    	</div>
+    	<div class="col-md-4">
+    	 <script>
+  		   $(function() {
+    		$( "#datepicker" ).datepicker();
+  		   });
+  		  </script>
+    	 <h4 align = 'center'>ADD AN EVENT</h4>
+    	 <p><input type="textbox" class="form-control" id="datepicker" placeholder="Date"/></p>
+    	 <p><input type="textbox" class="form-control" id="title" placeholder="Title"/></p>
+ 		 <p><input type="textbox" class="form-control" id="details" placeholder="Details"/></p>
+ 		 <h4 align="center"></br>
+ 		 	<button class="btn btn-default" id= 'submitbutton' type="submit" style="background-color:#FFFFCC" >ADD THIS MILESTONE TO CALENDAR</button>
+        </h4>
+    	</div>
+    	<div class="col-md-4">
+    	<h4></h4>
+    	 	<img src="http://cdn2.momjunction.com/wp-content/uploads/2014/05/mile-stone.jpg">
+    	</div>
+    	
+     </div>
     </div>
-	<footer>
+		
+ <script type="application/javascript">
+  $(document).ready(function () {
+    $("#my-calendar").zabuto_calendar({
+      cell_border: true,
+      today: true,
+      show_days: false,
+      weekstartson: 0,
+      nav_icon: {
+        prev: '<i class="fa fa-chevron-circle-left"></i>',
+        next: '<i class="fa fa-chevron-circle-right"></i>'
+      }
+    });
+  });
+</script>
+
+<footer>
      <div class="container" align="center">
             <div class="row">
             </br>
@@ -121,10 +107,6 @@
             </div>
         </div>
     </footer>
-
-  
-  
-  
-  </body>
-  
+    
+ </body>
 </html>

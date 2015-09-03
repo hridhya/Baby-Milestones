@@ -8,9 +8,10 @@
 	height: 40px;
 }
 
-.bottom h4{
+.bottom a{
 	font-family: 'Shift', sans-serif;
 	color: #FFFFCC;
+	text-decoration: none;
 }
 
 .nav a {
@@ -38,10 +39,24 @@
 }
 
 .jumbotron h1 {
-  color: black;
+  color: #654321;
   font-size: 30px;  
   font-family: 'Shift', sans-serif;
   
+}
+
+.jumbotron h1 #createbutton{
+  font-family: 'Shift', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #f4a460;
+}
+
+.container h1 #startbutton{
+  font-family: 'Shift', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #f4a460;
 }
 
 .jumbotron p {
@@ -58,6 +73,14 @@
 .learn-more a {
   color: #00b0ff;
 }
+
+.learn-more h4 #submitbutton {
+  font-family: 'Shift', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #f4a460;
+}
+
 
 #login{
 	background-image:url('http://www.htc24x7.com/sites/all/themes/city_magazine/css/background/green/images/header-wrapper-bg.png');
