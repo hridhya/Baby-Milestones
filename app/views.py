@@ -1,5 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, json
 from app import app
+from flask import jsonify
+
+import os
 
 
 @app.route('/')
@@ -29,6 +32,12 @@ def add_milestone() :
 	words = data.split("\n")
 	print words
 	return data
+	
+
+@app.route('/schedule')
+def schedule():
+	eventData = "[       {          \"date\":\"2015-09-04\",          \"badge\":\"true\",          \"title\":\"Birthday\",          \"body\": \"<p>Baby was born<\/p>\",          \"footer\": \"At Hudson\'s place\",          \"classname\": \"yellow-event\"      },{          \"date\":\"2015-11-20\",          \"badge\":\"true\",          \"title\":\"Tomorrow\",          \"body\": \"<p>Four days to the birthday party<\/p>\",          \"footer\": \"At Hudson\'s place\",          \"classname\": \"yellow-event\"      }    ,{          \"date\":\"2015-11-25\",          \"badge\":\"true\",          \"title\":\"Tomorrow\",          \"body\": \"<p>Four days to the birthday party<\/p>\",          \"footer\": \"At Hudson\'s place\",          \"classname\": \"yellow-event\"      }    	] "
+	return eventData
 	
 	
 	

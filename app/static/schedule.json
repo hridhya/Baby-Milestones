@@ -1,0 +1,18 @@
+var eventData = [   
+    {  
+        "date":"2015-11-17",  
+        "badge":true,  
+        "title":"Tomorrow",  
+        "body": "<p>Four days to the birthday party<\/p>",  
+        "footer": "At Hudson\'s place",  
+        "classname": "yellow-event"  
+    },   
+    {  
+        "date":"2015-11-21",  
+        "badge":true,  
+        "title":"My Grandson's Birthday",  
+        "body": "<p>Hudson\'s Birthday<\/p>",  
+        "footer": "At Hudson\'s place",  
+        "classname": "purple-event"  
+    }   
+];   
