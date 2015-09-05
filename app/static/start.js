@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	$("#submitbutton").click(function () {
      			var msg = $('#name').val() + "\n" + $('#datepicker').val() + "\n" + $('#gender').val();
-					
    	  			$.ajax({
     				url: "/start_album",
     				type: "POST",

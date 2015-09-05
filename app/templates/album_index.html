@@ -9,6 +9,8 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='datepicker.css') }}"/>
     <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-datepicker.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='start.js') }}"></script>
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,17 +29,16 @@
           <li><a href="#">BABY MILESTONES</a><span class="glyphicon glyphicon-heart" aria-hidden="true" style="color:red"></span></li>
         </ul>
         <ul class="pull-right">
-          <li><a href="#">LOG OUT</a></li>
+          <li><a href="{{ url_for('logout') }}">LOG OUT</a></li>
           <li><a href="#">WHY BABY MILESTONES</a></li>
           <li><a href="#">FAQ</a></li>
         </ul>
       </div>
     </div>
-    
     <div class="jumbotron">
       <div class="container">
-        <h1 align="center">PLEASE ENTER YOUR BABY'S DETAILS!</br>
-        <p></p>
+        <h1 align="center">HELLO, {{ nickname }}!</br></br>
+        <h1 align="center">PLEASE ENTER YOUR BABY'S DETAILS!</h1>
         </h1> 
       </div>
     </div> 
