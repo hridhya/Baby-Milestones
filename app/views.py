@@ -83,6 +83,18 @@ def start_album() :
 		db.session.add(baby)
 		db.session.commit()
 	return milestone_date
+	
+	
+@app.route('/baby_names')
+@login_required
+def baby_names() :
+	lst = []
+	user=g.user
+	baby = user.baby.all()
+	for p in baby:
+		lst.append(p.babyname.upper())
+	return jsonify(result = lst)
+		
 		
 		
 @app.route('/add_milestone', methods=['POST'])
