@@ -10,20 +10,8 @@ $(document).ready(function() {
 				});
      		});
      		
-     $("#babynames").click(function () {
      	$.getJSON('/baby_names', function(data) {
-			console.log(data.result.length);
-			var i = 1;
-			var elements = [];
-			for(x = 0; x < data.result.length; x++) {
-				
-    			var element = $('<div>'+ i + ". " +data.result[x]+'</div>' + '</br>');
-    			elements.push(element);
-    			i = i+1;
-    			
-			}
-			$('#result').append(elements);
+			console.log(data.result['baby_names']);
 			
-		});
-	});
-});
+	});         
+});                     

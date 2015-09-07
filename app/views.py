@@ -88,11 +88,14 @@ def start_album() :
 @app.route('/baby_names')
 @login_required
 def baby_names() :
-	lst = []
+	lst = {'id':[],'baby_names':[]}
 	user=g.user
 	baby = user.baby.all()
 	for p in baby:
-		lst.append(p.babyname.upper())
+		lst['id'].append(p.id)
+		lst["baby_names"].append(str(p.babyname).upper())
+		
+	print lst
 	return jsonify(result = lst)
 		
 		
