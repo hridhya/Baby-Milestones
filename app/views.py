@@ -76,24 +76,32 @@ def start_album() :
 	data = str(request.get_json())
 	words = data.split("\n")
 	global milestone_date, title, details, eventdata
+	
 	if len(words)>1 :
-		date_object = datetime.strptime(words[1], '%m/%d/%Y').date()
-		milestone_date = str(date_object)
-		baby = Baby(babyname=words[0], birthdate=milestone_date, gender=words[2], author = g.user)
-		db.session.add(baby)
-		db.session.commit()
+		user=g.user
+		baby = user.baby.all()
+		for p in baby:
+			if words[0] == p.babyname :
+				print 'XXX'
+				break
+			else : 
+				date_object = datetime.strptime(words[1], '%m/%d/%Y').date()
+				milestone_date = str(date_object)
+				baby = Baby(babyname=words[0], birthdate=milestone_date, gender=words[2], author = g.user)
+				db.session.add(baby)
+				db.session.commit()
 	return milestone_date
 	
 	
 @app.route('/baby_names')
 @login_required
 def baby_names() :
-	lst = {'id':[],'baby_names':[]}
+	lst = []
 	user=g.user
 	baby = user.baby.all()
 	for p in baby:
-		lst['id'].append(p.id)
-		lst["baby_names"].append(str(p.babyname).upper())
+		
+		lst.append(str(p.babyname).upper())
 		
 	print lst
 	return jsonify(result = lst)
