@@ -17,7 +17,7 @@ $(document).ready(function() {
             	var link = document.createElement("a");             
             	var text = document.createTextNode(data.result[x]);
             	link.appendChild(text);
-            	link.href = "#";
+            	link.href = "/view_milestone";
             	li.appendChild(link);
             	list.appendChild(li);
     			

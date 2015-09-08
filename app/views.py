@@ -82,7 +82,6 @@ def start_album() :
 		baby = user.baby.all()
 		for p in baby:
 			if words[0] == p.babyname :
-				print 'XXX'
 				break
 			else : 
 				date_object = datetime.strptime(words[1], '%m/%d/%Y').date()
@@ -105,10 +104,14 @@ def baby_names() :
 		
 	print lst
 	return jsonify(result = lst)
+
+
+@app.route('/view_milestone', methods=['POST', 'GET'])
+@login_required
+def view_milestone() :
+	return render_template("album.html")
 		
-		
-		
-@app.route('/add_milestone', methods=['POST'])
+@app.route('/add_milestone', methods=['POST', 'GET'])
 @login_required
 def add_milestone() :
 	data = str(request.get_json())
