@@ -11,10 +11,8 @@
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='datepicker.css') }}"/>
     <script type="text/javascript" src="{{ url_for('static', filename='zabuto_calendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='bootstrap-datepicker.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='create.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='baby_names.js') }}"></script>
-
-
+    <script type="text/javascript" src="{{ url_for('static', filename='create_for_user.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='baby_names.js') }}"></script>
     
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,7 +58,7 @@
     			today: true,
     			weekstartson: 0,
     			ajax: {
-      					url: "/schedule",
+      					url: "/schedule_with_id",
       					modal: true
    					 }
   			});

@@ -9,10 +9,13 @@ from datetime import datetime
 from flask import request, jsonify
 
 global milestone_date, title, details, eventdata
+global baby_id
+
 milestone_date="0-0-0"
 title = "xxx"
 details = "xxx"
 eventdata = [{"date":"0-0-0","badge":"false","title":"xxx","body": "xxx","classname":"yellow-event"}]
+baby_id=1000
 
 @lm.user_loader
 def load_user(id):
@@ -75,82 +78,124 @@ def album() :
 def start_album() :
 	data = str(request.get_json())
 	words = data.split("\n")
-	global milestone_date, title, details, eventdata
+	global milestone_date, title, details, eventdata, baby_id
 	
 	if len(words)>1 :
 		user=g.user
 		baby = user.baby.all()
-		for p in baby:
-			if words[0] == p.babyname :
-				break
-			else : 
-				date_object = datetime.strptime(words[1], '%m/%d/%Y').date()
-				milestone_date = str(date_object)
-				baby = Baby(babyname=words[0], birthdate=milestone_date, gender=words[2], author = g.user)
-				db.session.add(baby)
-				db.session.commit()
-	return milestone_date
+			
+		date_object = datetime.strptime(words[1], '%m/%d/%Y').date()
+		milestone_date = str(date_object)
+		baby = Baby(babyname=words[0], birthdate=milestone_date, gender=words[2], author = g.user)
+		db.session.add(baby)
+		db.session.commit()
+		
+		
+	baby_id = baby.id	
+	return baby_id
 	
 	
 @app.route('/baby_names')
 @login_required
 def baby_names() :
-	lst = []
+	lst = {'id':[],'baby_names':[]}
 	user=g.user
 	baby = user.baby.all()
 	for p in baby:
-		
-		lst.append(str(p.babyname).upper())
-		
-	print lst
+		lst['id'].append(p.id)
+		lst["baby_names"].append(str(p.babyname).upper())
 	return jsonify(result = lst)
+	
 
 
-@app.route('/view_milestone', methods=['POST', 'GET'])
+@app.route('/view_milestone<id>', methods=['POST', 'GET'])
 @login_required
-def view_milestone() :
-	return render_template("album.html")
+def view_milestone(id) :
+	global baby_id
+	baby_id = id
+	return render_template("album_users.html")
+	
+@app.route('/schedule_with_id')
+@login_required
+def schedule_with_id():
+	global title, details, eventdata
+	global baby_id
+	user=g.user
+	baby = user.baby.all()
+	for p in baby :
+		if p.id == int(baby_id) :
+			if p.gender.lower()== "female" :
+				x = "GIRL"
+			else :
+				x = "BOY"	
+			details = "BABY " + x + " " + p.babyname.upper()+" WAS BORN"
+			eventdata = [{"date":p.birthdate,"badge":"true","title":"BIRTHDAY","body": details,"classname":"yellow-event"}]
+			milestones = p.milestones.all()
+			for m in milestones :
+				eventdata.append({"date":m.milestonedate,"badge":"true","title":m.title,"body": m.details,"classname":"yellow-event"})
+	return make_response(dumps(eventdata))
+	
+@app.route('/add_milestone_new', methods=['POST'])
+@login_required
+def add_milestone_new() :
+	data = str(request.get_json())
+	words = data.split("\n")
+	global milestone_date, title, details
+	global baby_id
+	user=g.user
+	baby = user.baby.all()
+	for p in baby:
+		if p.id == int(baby_id):
+			if len(words)>1 :
+				date_object = datetime.strptime(words[0], '%m/%d/%Y').date()
+				milestone_date = str(date_object)
+				milestone = Milestones(milestonedate=milestone_date, title=words[1], details=words[2], author = p)
+				db.session.add(milestone)
+				db.session.commit()
+				title = words[1]
+				details = words[2]
+	return data
+	
 		
-@app.route('/add_milestone', methods=['POST', 'GET'])
+@app.route('/add_milestone', methods=['POST'])
 @login_required
 def add_milestone() :
 	data = str(request.get_json())
 	words = data.split("\n")
 	global milestone_date, title, details
+	global baby_id
 	user=g.user
 	baby = user.baby.all()
 	for p in baby:
-		if len(words)>1 :
-			date_object = datetime.strptime(words[0], '%m/%d/%Y').date()
-			milestone_date = str(date_object)
-			milestone = Milestones(milestonedate=milestone_date, title=words[1], details=words[2], author = p)
-			db.session.add(milestone)
-			db.session.commit()
-			title = words[1]
-			details = words[2]
+		if p.id == baby_id:
+			if len(words)>1 :
+				date_object = datetime.strptime(words[0], '%m/%d/%Y').date()
+				milestone_date = str(date_object)
+				milestone = Milestones(milestonedate=milestone_date, title=words[1], details=words[2], author = p)
+				db.session.add(milestone)
+				db.session.commit()
+				title = words[1]
+				details = words[2]
 	return data
 	
 	
 @app.route('/schedule')
 @login_required
 def schedule():
-	global title, details, eventdata
+	global title, details, eventdata, baby_id
 	user=g.user
 	baby = user.baby.all()
 	for p in baby :
-		if p.gender.lower()== "female" :
-			x = "GIRL"
-		else :
-			x = "BOY"	
-		details = "BABY " + x + " " + p.babyname.upper()+" WAS BORN"
-		eventdata = [{"date":p.birthdate,"badge":"true","title":"BIRTHDAY","body": details,"classname":"yellow-event"}]
-		milestones = p.milestones.all()
-		for m in milestones :
-			print m
-			eventdata.append({"date":m.milestonedate,"badge":"true","title":m.title,"body": m.details,"classname":"yellow-event"})
-		
+			if p.gender.lower()== "female" :
+				x = "GIRL"
+			else :
+				x = "BOY"	
+			details = "BABY " + x + " " + p.babyname.upper()+" WAS BORN"
+			eventdata = [{"date":p.birthdate,"badge":"true","title":"BIRTHDAY","body": details,"classname":"yellow-event"}]
+			milestones = p.milestones.all()
+			for m in milestones :
+				eventdata.append({"date":m.milestonedate,"badge":"true","title":m.title,"body": m.details,"classname":"yellow-event"})
 	return make_response(dumps(eventdata))
-	
 	
 @oid.after_login
 def after_login(resp):

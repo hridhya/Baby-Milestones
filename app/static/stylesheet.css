@@ -26,11 +26,9 @@
   display: inline;
 }
 
-
-
 .jumbotron {
   background-image:url('http://wallpapershdfine.com/wp-content/gallery/baby-background-wallpaper/baby-footprint-backgrounds.jpg');
-  height: 350px;
+  height: 380px;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -54,6 +52,12 @@
   color: #f4a460;
 }
 
+.jumbotron h4 #babynames{
+  font-family: 'Shift', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #f4a460;
+}
 .container h1 #startbutton{
   font-family: 'Shift', sans-serif;
   font-size: 14px;
@@ -66,10 +70,11 @@
   color: black;
 }
 
-.learn-more h3 {
+.learn-more p {
   font-family: 'Shift', sans-serif;
   font-size: 18px;
   font-weight: bold;
+  color: #f4a460;
 }
 
 .learn-more a {
@@ -77,6 +82,13 @@
 }
 
 .learn-more h4 #submitbutton {
+  font-family: 'Shift', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #f4a460;
+}
+
+.learn-more h4{
   font-family: 'Shift', sans-serif;
   font-size: 14px;
   font-weight: bold;

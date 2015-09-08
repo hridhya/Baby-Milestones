@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	$("#submitbutton1").click(function () {
      			var msg = $('#datepicker').val() + "\n" + $('#title').val() + "\n" + $('#details').val();
-				console.log(msg)	
+					
    	  			$.ajax({
-    				url: "/add_milestone",
+    				url: "/add_milestone_new",
     				type: "POST",
     				data: JSON.stringify(msg),
     				contentType: "application/json; charset=utf-8",
