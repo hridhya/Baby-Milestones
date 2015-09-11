@@ -3,8 +3,9 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+from app import app, db
+app.config.from_object(os.environ['APP_SETTINGS'])
+
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -18,3 +19,4 @@ class User(db.Model):
 
 if __name__ == '__main__':
     manager.run()
+
